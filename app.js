@@ -15,7 +15,7 @@ const campgroundRoutes = require('./routes/camgprounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 
 
-require('dotenv').config({ path: './process.env' });
+require('dotenv').config({ path: './.env' });
 
 
 mongoose
@@ -64,9 +64,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-
-
 app.use((req,res,next)=>{
+  console.log(req.session);
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error  = req.flash('error');
   next();
