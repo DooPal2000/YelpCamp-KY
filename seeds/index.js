@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cities = require('./cities');
 const {places, descriptors} = require('./seedHelpers');
 const Campground = require('../models/campground');
-require('dotenv').config({ path: '../process.env' });
+require('dotenv').config({ path: '../.env' });
 
 
 mongoose
@@ -38,6 +38,7 @@ const sample = array =>
           const random1000 = Math.floor(Math.random() * 1000);
           const price = Math.floor(Math.random() * 20) + 10;
           const camp = new Campground({
+              author: '65d8d4df776940930bf1222e',
               location: `${cities[random1000].city}, ${cities[random1000].state}`,
               title: `${sample(descriptors)} ${sample(places)}`,
               image: 'https://source.unsplash.com/collection/483251',
