@@ -29,7 +29,15 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 }));
 
 router.get('/:id', catchAsync(async (req, res,) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    // 리뷰에 여러 명이 populate 해야 해서, 주석처리된 부분과 다르게 진행된다. 
+    //const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    const campground = await Campground.findById(req.params.id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
+    console.log(campground);
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
