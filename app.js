@@ -72,12 +72,12 @@ app.use((req,res,next)=>{
   next();
 })
 
-app.get('/fakeUser', async(req,res) => {
-  const user = new User({ email:'duq25@naver.com', username: 'yeob' })
-  const newUser = await User.register(user, 'chicken');
-  res.send(newUser);
+// app.get('/fakeUser', async(req,res) => {
+//   const user = new User({ email:'duq25@naver.com', username: 'yeob' })
+//   const newUser = await User.register(user, 'chicken');
+//   res.send(newUser);
   
-})
+// })
 
 
 app.use('/',userRoutes);
