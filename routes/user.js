@@ -7,9 +7,18 @@ const User = require('../models/user');
 const users = require('../controllers/users');
 
 
-router.get('/register', users.renderRegister);
+router.route('/register')
+    .get(users.renderRegister)
+    .post(catchAsync(users.register));
 
-router.post('/register', catchAsync(users.register));
+
+// router.get('/register', users.renderRegister);
+// router.post('/register', catchAsync(users.register));
+
+router.route('/login')
+
+
+
 
 // PASSPORT 보안 강화로 인해 로그인 시 세션 초기화, 아래 코드 사용 
 // 이렇게 수정하면, 최신 버전의 Passport.js를 사용해도 애플리케이션에서 사용자가 로그인 페이지 전에 방문 중이던 페이지로 정확하게 리디렉션됩니다.
