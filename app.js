@@ -1,4 +1,7 @@
 const express = require('express');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
