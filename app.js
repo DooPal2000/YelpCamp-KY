@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV !== "production"){
+  require('dotenv').config();
+}
 const express = require('express');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -18,7 +21,7 @@ const campgroundRoutes = require('./routes/camgprounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 
 
-require('dotenv').config({ path: './.env' });
+//require('dotenv').config({ path: './.env' });
 
 
 mongoose
