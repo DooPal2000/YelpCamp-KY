@@ -15,7 +15,7 @@ router.route('/register')
 // router.get('/register', users.renderRegister);
 // router.post('/register', catchAsync(users.register));
 
-router.route('/login')
+//router.route('/login')
 
 
 
