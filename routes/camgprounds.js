@@ -11,11 +11,7 @@ const upload = multer({ storage });
 // 참고 깃허브: https://github.com/expressjs/multer/blob/master/doc/README-ko.md 
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    //.post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground))
-    .post(upload.single('image'), (req, res) => {
-        console.log(req.body, req.file);
-        res.send('It worked?');
-    })
+    .post(isLoggedIn, upload.single('image'), validateCampground, catchAsync(campgrounds.createCampground))
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 
