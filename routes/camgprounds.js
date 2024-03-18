@@ -24,7 +24,7 @@ router.route('/:id')
 
 // router.get('/:id', catchAsync(campgrounds.showCampground));
 
-// router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm))
+ router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm))
 
 // router.put('/:id', validateCampground, catchAsync(campgrounds.updateCampground));
 

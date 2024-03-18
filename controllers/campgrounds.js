@@ -13,7 +13,7 @@ module.exports.createCampground = async (req, res, next) => {
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     console.log(req.file);
     const campground = new Campground(req.body.campground);
-    campground.image = {
+    campground.images = {
         url: req.file.path,
         filename: req.file.filename
     };
