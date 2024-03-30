@@ -20,22 +20,24 @@ module.exports.createCampground = async (req, res, next) => {
     }).send()
     
     console.log(geoData.body.features[0].geometry.coordinates);
-    res.send(geoData.body.features[0].geometry.coordinates);
+    //res.send(geoData.body.features[0].geometry.coordinates);
 
-    // // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
-    // console.log(req.file);
-    // const campground = new Campground(req.body.campground);
-    // campground.images = {
-    //     url: req.file.path,
-    //     filename: req.file.filename
-    // };
+    // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+    console.log(req.file);
 
-    // console.log(campground);
-    // //ampground.images = req.files.map( f => ({url: f.path, filename: f.filename}))
-    // campground.author = req.user._id;
-    // await campground.save();
-    // req.flash('success', 'Successfully made a new campground');
-    // res.redirect(`/campgrounds/${campground._id}`)
+    const campground = new Campground(req.body.campground);
+    campground.geometry = geoData.body.features[0].geometry;
+    campground.images = {
+        url: req.file.path,
+        filename: req.file.filename
+    };
+
+    console.log(campground);
+    //ampground.images = req.files.map( f => ({url: f.path, filename: f.filename}))
+    campground.author = req.user._id;
+    await campground.save();
+    req.flash('success', 'Successfully made a new campground');
+    res.redirect(`/campgrounds/${campground._id}`)
 }
 
 module.exports.showCampground = async (req, res,) => {
