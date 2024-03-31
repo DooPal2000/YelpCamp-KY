@@ -126,6 +126,7 @@
 
     <script> // ejs 문법이기 때문에, js 내에서 로드가 되지 않음 아래와 같이 넘겨주는 방식 채택.
         const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
+        const campground = <%- JSON.stringify(campground) %>
     </script>
     <script src="/javascripts/showPageMap.js"></script>
 
