@@ -36,20 +36,20 @@ map.on('load', () => {
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#51bbd6',
-                100,
-                '#f1f075',
-                750,
-                '#f28cb1'
+                '#03A9F4',
+                10,
+                '#2196F3',
+                30,
+                '#3F51B5'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
+                15,
+                10,
                 20,
-                100,
                 30,
-                750,
-                40
+                25
             ]
         }
     });
@@ -73,7 +73,7 @@ map.on('load', () => {
         filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#11b4da',
-            'circle-radius': 20,
+            'circle-radius': 5,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
         }
