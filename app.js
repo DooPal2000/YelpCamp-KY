@@ -1,8 +1,8 @@
-if(process.env.NODE_ENV !== "production"){
+if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 const express = require('express');
-const multer  = require('multer')
+const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
 const path = require('path');
@@ -16,7 +16,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
 
-const userRoutes= require('./routes/user.js');
+const mongoSanitize = require('express-mongo-sanitize');
+
+const userRoutes = require('./routes/user.js');
 const campgroundRoutes = require('./routes/camgprounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 
@@ -25,16 +27,16 @@ const reviewRoutes = require('./routes/reviews.js');
 
 
 mongoose
-.connect(
-  process.env.MONGODB_URI
-)
-.then(() => {
-  console.log("Connected to database!");
-})
-.catch((e) => {
-  console.log("Connection failed!");
-  console.error("Connection failed:", e);
-});
+  .connect(
+    process.env.MONGODB_URI
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch((e) => {
+    console.log("Connection failed!");
+    console.error("Connection failed:", e);
+  });
 
 
 
@@ -47,6 +49,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize({
+  replaceWith: '_'
+}));
 
 const sessionConfig = {
   secret: 'thisissecretkey', // 실제 프로덕트에서는 비밀 키
@@ -70,11 +75,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-app.use((req,res,next)=>{
-  // console.log(req.session);
+app.use((req, res, next) => {
+  console.log(req.query);
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
-  res.locals.error  = req.flash('error');
+  res.locals.error = req.flash('error');
   next();
 })
 
@@ -82,13 +87,13 @@ app.use((req,res,next)=>{
 //   const user = new User({ email:'duq25@naver.com', username: 'yeob' })
 //   const newUser = await User.register(user, 'chicken');
 //   res.send(newUser);
-  
+
 // })
 
 
-app.use('/',userRoutes);
-app.use('/campgrounds',campgroundRoutes);
-app.use('/campgrounds/:id/reviews',reviewRoutes);
+app.use('/', userRoutes);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 
 app.get('/', (req, res) => {
@@ -98,13 +103,13 @@ app.get('/', (req, res) => {
 
 
 app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
+  next(new ExpressError('Page Not Found', 404))
 })
 
 app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-    res.status(statusCode).render('error', { err })
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+  res.status(statusCode).render('error', { err })
 })
 
 
